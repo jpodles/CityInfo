@@ -1,4 +1,5 @@
-﻿using CityInfo.API.Contexts;
+﻿using AutoMapper;
+using CityInfo.API.Contexts;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +19,7 @@ namespace CityInfo.API
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
@@ -38,6 +40,7 @@ namespace CityInfo.API
             });
 
             services.AddScoped<ICityInfoRepository, CityInfoRepository>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
