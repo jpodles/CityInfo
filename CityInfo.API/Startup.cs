@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
+
 using CityInfo.API.Contexts;
 using CityInfo.API.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using System;
 
 namespace CityInfo.API
@@ -28,6 +31,8 @@ namespace CityInfo.API
                     o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
                 });
 
+
+
 #if DEBUG
             services.AddTransient<IMailService, LocalMailService>();
 #else
@@ -39,6 +44,8 @@ namespace CityInfo.API
                 o.UseSqlServer(connectionString);
             });
 
+            services.AddSwaggerGen();
+
             services.AddScoped<ICityInfoRepository, CityInfoRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -46,6 +53,10 @@ namespace CityInfo.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
