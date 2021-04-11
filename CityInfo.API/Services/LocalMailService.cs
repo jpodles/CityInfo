@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+
 using System;
 using System.Diagnostics;
 
@@ -15,7 +16,6 @@ namespace CityInfo.API.Services
 
         public void Send(string subject, string message)
         {
-            // send mail - output to debug window
             Debug.WriteLine($"Mail from {_configuration["mailSettings:mailFromAddress"]} " +
                             $"to {_configuration["mailSettings:mailToAddress"]}, with LocalMailService.");
             Debug.WriteLine($"Subject: {subject}");

@@ -70,7 +70,7 @@ namespace CityInfo.API.Controllers
 
         [HttpPost]
         public IActionResult CreatPointOfInterest(int cityId,
-            [FromBody] PointOfInterestForCreationDto pointOfInterest)
+            [FromBody] PointOfInterestCreationDto pointOfInterest)
         {
             if (pointOfInterest.Description == pointOfInterest.Name)
             {
@@ -105,7 +105,7 @@ namespace CityInfo.API.Controllers
 
         [HttpPut("{id}")]
         public IActionResult UpdatePointOfInterest(int cityId, int id,
-            [FromBody] PointOfInterestForUpdateDto pointOfInterest)
+            [FromBody] PointOfInterestUpdateDto pointOfInterest)
         {
             if (pointOfInterest.Description == pointOfInterest.Name)
             {
@@ -141,7 +141,7 @@ namespace CityInfo.API.Controllers
 
         [HttpPatch("{id}")]
         public IActionResult PartiallyUpdatePointOfInterest(int cityId, int id,
-            [FromBody] JsonPatchDocument<PointOfInterestForUpdateDto> patchDoc)
+            [FromBody] JsonPatchDocument<PointOfInterestUpdateDto> patchDoc)
         {
             if (!_cityInfoRepository.CityExists(cityId))
             {
@@ -155,7 +155,7 @@ namespace CityInfo.API.Controllers
             }
 
             var pointOfInterestToPatch = _mapper
-                .Map<PointOfInterestForUpdateDto>(pointOfInterestEntity);
+                .Map<PointOfInterestUpdateDto>(pointOfInterestEntity);
 
             patchDoc.ApplyTo(pointOfInterestToPatch, ModelState);
 
